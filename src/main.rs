@@ -22,12 +22,11 @@ fn main() {
             Ok(num) => num,
             Err(_) => continue,
         };
-        if example == 1 {
-            temp_example();
-        } else if example == 2 {
-            fibonacci_example();
-        }else{
-            println!("Enter valid input");
+        match example {
+            1 => temp_example(),
+            2 => fibonacci_example(),
+            3 => christmas_example(),
+            _ => println!("Enter valid input"),
         }
     }
 }
@@ -104,12 +103,34 @@ fn fibonacci_example() {
     };
     println!("Value is: {}",value);
 }
-    
-// passed in n and calculates until we get values
 fn fib_number(n: u32) -> u32 {
     match n {
         0 => return 0,
         1 | 2 => return 1,
         _ => fib_number(n-1) + fib_number(n-2),
+    }
+}
+fn christmas_example(){
+    for n in 1..13 {
+        println!("On the {} day of Christmas my true love gave to me",n);
+        let mut index = n;
+        while index >= 1 {
+            match index {
+                1 => println!("a partridge in a pear tree"),
+                2 => println!("two turtle doves and "),
+                3 => println!("three French hens,"),
+                4 => println!("four calling birds,"),
+                5 => println!("five golden rings,"),
+                6 => println!("six geese a laying,"),
+                7 => println!("seven swans a swimming,"),
+                8 => println!("eight maids a milking"),
+                9 => println!("nine ladies dancing,"),
+                10 => println!("ten lords a leaping,"),
+                11 => println!("eleven pipeos pipin,"),
+                12 => println!("twelve drummers drumming,"),
+                _ => println!("")
+            }
+            index -= 1;
+        }
     }
 }
