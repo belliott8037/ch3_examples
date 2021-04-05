@@ -23,13 +23,15 @@ fn main() {
             Err(_) => continue,
         };
         if example == 1 {
-            first_example();
+            temp_example();
         } else if example == 2 {
-            second_example();
+            fibonacci_example();
+        }else{
+            println!("Enter valid input");
         }
     }
 }
-fn first_example() {
+fn temp_example() {
     // Convert temperature given from Fahrenheit and Celsius
     let temp = get_temp();
     let degree = get_degree();
@@ -82,8 +84,8 @@ fn get_degree() -> bool {
         return farenheit;
     }
 }
-fn second_example() {
-    println!("What Fibonacci entry would you like? ");
+fn fibonacci_example() {
+    println!("What positive Fibonacci entry would you like? ");
     
     let mut n = String::new();
 
@@ -91,49 +93,23 @@ fn second_example() {
     .read_line(&mut n)
     .expect("Failed to read line");
 
-    let n: i32 = match n.trim().parse(){
+    let n: u32 = match n.trim().parse(){
         Ok(num) => num,
         Err(_) => return,
     };
-    if n <= -2 {
-        let n = n * -1;
-        let value = find_number(n-1) + find_number(n-2);
-        if sign(n){
-            let value = value * -1;
-            println!("Value is: {}",value);
-        }else{
-            println!("Value is: {}",value);
-        }
-    }
-    else if n >= -1 && n <= 2 {
-        if n < 0 {
-            let n = n*-1;
-            let value = find_number(n);
-            println!("Value is: {}",value);
-        }else{
-            let value = find_number(n);
-            println!("Value is: {}",value);
-        }
-    }else{
-        let value = find_number(n-1) + find_number(n-2);
-        println!("Value is: {}",value);
-    }
+
+    let value = match n {        
+        0 | 1 | 2 => fib_number(n),
+        _ => fib_number(n-1) + fib_number(n-2),
+    };
+    println!("Value is: {}",value);
+}
     
-}
 // passed in n and calculates until we get values
-fn find_number(n: i32) -> i32 {
-    if n == 0 {
-        return 0;
-    }else if n == 1 || n == 2 {
-        return 1;
-    }else{
-        return find_number(n-1) + find_number(n-2);
-    }
-}
-fn sign(n: i32) -> bool{
-    if n % 2 == 0 {
-        return true;
-    }else{
-        return false;
+fn fib_number(n: u32) -> u32 {
+    match n {
+        0 => return 0,
+        1 | 2 => return 1,
+        _ => fib_number(n-1) + fib_number(n-2),
     }
 }
